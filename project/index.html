@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dream Destinations Travel Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <svg class="icon-large floating" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                        <circle cx="12" cy="10" r="3"/>
+                    </svg>
+                    <svg class="sparkle rotating" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2l2.4 7.2L22 12l-7.6 2.8L12 22l-2.4-7.2L2 12l7.6-2.8L12 2z"/>
+                    </svg>
+                    <h1 class="title-gradient">Dream Destinations</h1>
+                </div>
+                <p class="subtitle fade-in-up">Track, prioritize, and manage your dream travel destinations. Build your personal bucket list of places to explore around the world.</p>
+            </div>
+        </header>
+
+        <!-- Add Destination Section -->
+        <section class="add-section">
+            <button id="addBtn" class="add-btn pulse-on-hover">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="12" y1="5" x2="12" y2="19"/>
+                    <line x1="5" y1="12" x2="19" y2="12"/>
+                </svg>
+                Add New Dream Destination
+            </button>
+
+            <form id="addForm" class="add-form hidden">
+                <div class="form-header">
+                    <svg class="icon bounce" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                        <circle cx="12" cy="10" r="3"/>
+                    </svg>
+                    <h3>Add New Destination</h3>
+                </div>
+
+                <div class="form-group">
+                    <label for="destinationName">Destination Name</label>
+                    <input type="text" id="destinationName" placeholder="e.g., Bali, Indonesia" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="reason">Why do you want to visit?</label>
+                    <textarea id="reason" placeholder="e.g., Beautiful beaches, rich culture, amazing food..." rows="3" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="priority">Priority Level</label>
+                    <select id="priority">
+                        <option value="High">🔥 High Priority</option>
+                        <option value="Medium" selected>⭐ Medium Priority</option>
+                        <option value="Low">💚 Low Priority</option>
+                    </select>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="submit-btn glow-on-hover">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"/>
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                        </svg>
+                        Add Destination
+                    </button>
+                    <button type="button" id="cancelBtn" class="cancel-btn">Cancel</button>
+                </div>
+            </form>
+        </section>
+
+        <!-- Filter Controls -->
+        <section id="filterSection" class="filter-section hidden">
+            <div class="filter-content">
+                <div class="filter-controls">
+                    <svg class="icon wiggle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="22,3 2,3 10,12.46 10,19 14,21 14,12.46 22,3"/>
+                    </svg>
+                    <span>Filter by Priority:</span>
+                    <select id="filterSelect">
+                        <option value="All">All Destinations</option>
+                        <option value="High">High Priority</option>
+                        <option value="Medium">Medium Priority</option>
+                        <option value="Low">Low Priority</option>
+                    </select>
+                </div>
+
+                <div class="stats">
+                    <div class="stat">
+                        <div class="stat-number counter" id="totalCount">0</div>
+                        <div class="stat-label">Total</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number visited counter" id="visitedCount">0</div>
+                        <div class="stat-label">Visited</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number remaining counter" id="remainingCount">0</div>
+                        <div class="stat-label">Remaining</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="progress-section">
+                <div class="progress-header">
+                    <span>Progress</span>
+                    <span id="progressPercent" class="progress-text">0%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill shimmer" id="progressFill"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Destinations Grid -->
+        <section class="destinations-section">
+            <div id="destinationsGrid" class="destinations-grid"></div>
+            
+            <!-- Empty State -->
+            <div id="emptyState" class="empty-state">
+                <div class="empty-icon">
+                    <svg class="plane floating-plane" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21 4 19 4s-2 1-3.5 2.5L11 10l-8.2 1.8c-.5.1-.9.6-.9 1.1v.5c0 .6.4 1 1 1L8 13l5 5v5.5c0 .6.4 1 1 1h.5c.5 0 1-.4 1.1-.9L17.8 19.2z"/>
+                    </svg>
+                    <div class="pulse-bg"></div>
+                </div>
+                <h3 class="fade-in-up">Start Your Travel Journey</h3>
+                <p class="fade-in-up">Add your dream destinations and start planning your next adventure. Track places you want to visit and mark them off as you explore the world!</p>
+                <div class="priority-legend fade-in-up">
+                    <div class="legend-item">
+                        <div class="legend-dot high pulse-dot"></div>
+                        <span>High Priority</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-dot medium pulse-dot"></div>
+                        <span>Medium Priority</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-dot low pulse-dot"></div>
+                        <span>Low Priority</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filtered Empty State -->
+            <div id="filteredEmptyState" class="empty-state hidden">
+                <svg class="icon-large shake" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                    <circle cx="12" cy="10" r="3"/>
+                </svg>
+                <h3>No destinations match your filter</h3>
+                <p>Try changing your filter to see more destinations.</p>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p class="footer-text">Start planning your next adventure today! ✈️</p>
+        </footer>
+    </div>
+
+    <!-- Confetti Container -->
+    <div id="confetti" class="confetti-container"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
